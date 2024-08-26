@@ -1,0 +1,40 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe Finder</title>
+</head>
+<body>
+    <h1>Recipe Finder</h1>
+    <form action="search" method="get">
+        <label for="ingredient">Enter an ingredient:</label>
+        <input type="text" id="ingredient" name="ingredient" required>
+        <input type="submit" value="Find Recipes">
+    </form>
+
+    <hr>
+
+    <c:if test="${not empty recipes}">
+        <h2>Recipes containing the ingredient:</h2>
+        <ul>
+            <c:forEach var="recipe" items="${recipes}">
+                <li>
+                    <strong>${recipe.name}</strong><br>
+                    Ingredients:
+                    <ul>
+                        <c:forEach var="ingredient" items="${recipe.ingredients}">
+                            <li>${ingredient}</li>
+                        </c:forEach>
+                    </ul>
+                    Instructions: ${recipe.instructions}
+                </li>
+            </c:forEach>
+        </ul>
+    </c:if>
+
+    <c:if test="${empty recipes}">
+        <p>No recipes found with the ingredient you entered.</p>
+    </c:if>
+</body>
+</html>
